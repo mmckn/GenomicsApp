@@ -1,0 +1,46 @@
+﻿@model SignInViewModel
+
+<!-- login page for all users. -->
+
+<div class="container my-5">
+    <h2 class="h3 mb-3 font-weight-normal"> Login</h2>
+
+    <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+
+        <div class="form-group w-50">
+
+            <input placeholder="Email Address" asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group w-50">
+
+            <input placeholder="Password" asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary btn-lg"> Login</button>
+
+        <div class="dropdown d-inline-block">
+            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Register
+            </button>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="btn btn-secondary" asp-action="UserRegistration" asp-controller="UserAccount">Contributor Sign-Up</a>
+                <a class="btn btn-secondary" asp-action="ResearcherRegistration" asp-controller="UserAccount">Researcher Sign-Up</a>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+
+
+
+

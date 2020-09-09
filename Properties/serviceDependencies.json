@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "storage1": {
+      "type": "storage",
+      "connectionId": "blobstorage"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "AuthorDbContextConnectionProd"
+    }
+  }
+}

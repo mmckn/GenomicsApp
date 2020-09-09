@@ -1,0 +1,105 @@
+﻿
+@model ProjectListViewModel
+
+<!-- List of a researchers projects -->
+
+@if (ViewBag.submission != null)
+{
+    <div class="alert @ViewBag.AlertType">
+        <strong>@ViewBag.submission</strong>
+    </div>
+}
+`
+
+@if (Model.projectList.Count == 0)
+{
+    <div class="card text-center">
+        <div class="card-header " id="NoProjects">
+            <h1>You have not created any projects yet</h1>
+            <div class=" row justify-content-center">
+                <a class="btn btn-success float-right" asp-action="CreateProject" asp-controller="Researcher">Create Project</a>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<table class="table table-responsive-lg">
+    <caption>List of your research projects.</caption>
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+
+            <th scope="col">Participants</th>
+
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model.projectList)
+        {
+            <tr>
+                <td>@project.ProjectId</td>
+                <td>@project.ProjectTitle</td>
+
+                <td>@project.CurrentNumberOfParticipants/@project.RequiredNumberOfParticipants</td>
+
+                <td>
+                    <a class="btn btn-primary" asp-action="ReviewApplicants" asp-controller="Researcher" asp-route-projectid="@project.ProjectId">View Applications</a>
+                </td>
+
+                <td>
+                    <a class="btn btn-primary" asp-action="UpdateProjectProgress" asp-controller="Researcher" asp-route-projectId="@project.ProjectId">Update project progress</a>
+                </td>
+
+                <td>
+                    <a class="btn btn-warning" asp-action="EditProject" asp-controller="Researcher" asp-route-projectId="@project.ProjectId">Edit project</a>
+                </td>
+
+                <td>
+                    <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#exampleModalCenterleave@(project.ProjectId)">
+                        Delete
+                    </button>
+                </td>
+
+
+            </tr>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenterleave@(project.ProjectId)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitleleave@(project.ProjectId)" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5 class="modal-title" id="exampleModalCenterTitleleave@(project.ProjectId)">
+
+
+                                Deleting a project is permanent, you will lose access to any recruited users and should remove any copies of their genomes you have.
+
+                            </h5>
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <div class="modal-footer">
+                                <button class="btn btn-success" data-dismiss="modal" aria-label="Close">
+                                    Cancel
+                                </button>
+                                <a class="btn btn-danger" asp-action="DeleteProject" asp-controller="Researcher" asp-route-projectid="@project.ProjectId">Delete</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    </tbody>
+</table>
+

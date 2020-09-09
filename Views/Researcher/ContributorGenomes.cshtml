@@ -1,0 +1,54 @@
+﻿@model FileDataViewModel
+
+<!--- Allows researchers to download contributors genome. -->
+
+<h1>Download Contributor Genome</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>FileName</th>
+
+            <th>Download</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <div class="accordion" id="accordionExample">
+                <td>@Model.FileName</td>
+                <td>
+                    <div class="row justify-content-center">
+                        <button type="button" class="btn btn-success " data-toggle="modal" data-target="#modalGenomeDownload">
+                            Download Genome
+                        </button>
+                    </div>
+                </td>
+        </tr>
+
+    </tbody>
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalGenomeDownload" tabindex="-1" role="dialog" aria-labelledby="modalTitleGenomeDownload" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="modalTitleGenomeDownload">By downloading this genome you agree to delete any copies you have of it if the user leaves this project and to only use it in this research project. </h5>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
+                    Cancel
+                </button>
+                <a class=" btn btn-success float-right" href="/Researcher/DownloadGenome?genomeName=@Model.FileName">Download Genome</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

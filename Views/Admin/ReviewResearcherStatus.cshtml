@@ -1,0 +1,32 @@
+﻿@model ResearcherDetailsViewMOdel
+
+<h1>Researcher Applicant Details</h1>
+
+<table class="table">
+    <caption>Researcher details </caption>
+    <thead>
+        <tr>
+            <th scope="col">Researcher Organization</th>
+            <th scope="col">Researcher Email</th>
+            <th scope="col">Researcher Address</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>@Model.ResearcherOrganization</td>
+            <td>@Model.ResearcherEmail</td>
+            <td>@Model.ResearcherAddress</td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+@if (Model.ResearcherStatus.Equals("Pending Review"))
+{
+    <a class="btn btn-primary" asp-action="VerifyResearcherStatus" asp-controller="Admin" asp-route-id="@Model.ResearcherId">Verify User</a>
+}
+

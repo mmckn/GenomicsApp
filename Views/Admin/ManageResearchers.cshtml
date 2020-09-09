@@ -1,0 +1,51 @@
+﻿@model EditUserRolesViewModel
+
+
+@if (ViewBag.submission != null)
+{
+    <div class="alert @ViewBag.AlertType">
+        <strong>@ViewBag.submission</strong>
+    </div>
+}
+
+<table class="table">
+    <caption>list of researchers and verification status. </caption>
+    <thead>
+        <tr>
+            <th scope="col">UserName</th>
+
+            <th scope="col">Verification Status</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var user in Model.usersWithRoleList)
+        {
+
+            <tr>
+                <td>@user.username</td>
+                @if (user.status != null)
+                {
+                    <td>
+
+                        @if (user.status.Equals("Pending Review"))
+                        {
+                            <a class="btn btn-warning" asp-action="ReviewResearcherStatus" asp-controller="Admin" asp-route-id="@user.Id">@user.status</a>
+                        }
+                        else
+                        {
+                            <span class="badge badge-success">@user.status</span>
+                        }
+                    </td>
+                }
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+
+
+

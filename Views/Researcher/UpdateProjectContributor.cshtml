@@ -1,0 +1,31 @@
+﻿@model UpdateContributor
+
+<!-- Researchers give a personal project update to a contributor here. -->
+
+@if (ViewBag.submission != null)
+{
+    <div class="alert @ViewBag.AlertType">
+        <strong>@ViewBag.submission</strong>
+    </div>
+}
+
+
+<h1>Update Contributor</h1>
+
+<form method="post" asp-action="UpdateProjectContributor">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="update"></label>
+        <input asp-for="update" class="form-control" />
+        <span asp-validation-for="update" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input asp-for="projectMemberId" type="hidden" value="@Model.projectMemberId" />
+    </div>
+
+    <button type="submit" class="btn btn-primary"> Update Contributor</button>
+
+</form>

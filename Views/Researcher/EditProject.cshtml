@@ -1,0 +1,66 @@
+﻿@model UpdateProjectDetailsViewModel
+
+<!-- Researchers edit a project here. -->
+
+@if (ViewBag.submission != null)
+{
+    <div class="alert @ViewBag.AlertType">
+        <strong>@ViewBag.submission</strong>
+    </div>
+}
+
+
+<h1> Edit @Model.ProjectTitle</h1>
+
+<form method="post" asp-action="EditProject">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+
+    <div class="form-group">
+        <label asp-for="ResearchOrganization"></label>
+        <input asp-for="ResearchOrganization" value="@Model.ResearchOrganization" class="form-control" />
+        <span asp-validation-for="ResearchOrganization" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="ProjectTitle"></label>
+        <input asp-for="ProjectTitle" value="@Model.ProjectTitle" class="form-control" />
+        <span asp-validation-for="ProjectTitle" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" value="@Model.Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="RequiredNumberOfParticipants"></label>
+        <input asp-for="RequiredNumberOfParticipants" value="@Model.RequiredNumberOfParticipants" class="form-control" />
+        <span asp-validation-for="RequiredNumberOfParticipants" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" value="@Model.Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <input asp-for="ProjectId" type="hidden" value="@Model.ProjectId" />
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary"> Update Project</button>
+
+
+
+</form>
+
+

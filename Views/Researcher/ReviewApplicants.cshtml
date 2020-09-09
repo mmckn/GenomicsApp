@@ -1,0 +1,66 @@
+﻿@model ProjectApplicantListViewModel
+
+<!-- Researchers can view  and manage a list of applicants to a project here. -->
+@if (@Model.projectApplicantList.Count == 0)
+{
+    <h1>There are currently no applicants for your project.</h1>
+}
+else
+{
+<table class="table">
+    <caption>Applicant details.</caption>
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Email</th>
+            <th scope="col">Status</th>
+            <th scope="col">Update</th>
+            <th scope="col">Recruit</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var applicant in Model.projectApplicantList)
+        {
+            <tr>
+                <td>@applicant.Id</td>
+                <td>@applicant.Email</td>
+                <td>
+                    @if (applicant.status.Equals(null) == false && applicant.status.Equals("Pending Review"))
+
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @applicant.status
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="btn btn-success btn-secondary" asp-action="AcceptApplicant" asp-controller="Researcher" asp-route-ProjectMemberId="@applicant.ProjectApplicantId">Accept Applicant</a>
+                                <a class="btn btn-danger btn-secondary" asp-action="RejectApplicant" asp-controller="Researcher" asp-route-ProjectMemberId="@applicant.ProjectApplicantId">Reject Applicant</a>
+                            </div>
+                        </div>
+
+                    }
+                    else if (applicant.status.Equals("Accepted"))
+                    {
+                        <span class="badge badge-success">@applicant.status</span>
+                        <a class="btn btn-success" asp-action="ContributorGenomes" asp-controller="Researcher" asp-route-contributorId="@applicant.Id">Download Genome</a>
+
+                    }
+                    else
+                    {
+                        <span class="badge badge-danger">@applicant.status</span>
+
+                    }
+
+                </td>
+
+                <td> <a class="btn btn-primary" asp-action="UpdateProjectContributor" asp-controller="Researcher" asp-route-ProjectMemberId="@applicant.ProjectApplicantId">Update</a>
+
+                <td> <a class="btn btn-primary" asp-action="InviteContributorToProject" asp-controller="Researcher" asp-route-projectId="@applicant.Id">Recruit</a></td>
+
+            </tr>
+        }
+
+    </tbody>
+</table>
+}

@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroup')]/providers/Microsoft.Sql/servers/genomify/databases/GenomifyDb",
+      "type": "mssql.azure",
+      "connectionId": "AuthorDbContextConnectionProd",
+      "secretStore": "AzureAppSettings"
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroup')]/providers/Microsoft.Storage/storageAccounts/contributorfiles",
+      "type": "storage.azure",
+      "connectionId": "blobstorage",
+      "secretStore": "AzureAppSettings"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "AuthorDbContextConnection",
+      "suggestion": "true",
+      "ignored": "true"
+    }
+  }
+}

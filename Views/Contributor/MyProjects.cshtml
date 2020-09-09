@@ -1,0 +1,271 @@
+﻿@model ProjectListViewModel
+
+<!-- List of every project a contributor is a member of. -->
+
+@if (ViewBag.submission != null)
+{
+    <div class="alert @ViewBag.AlertType">
+        <strong>@ViewBag.submission</strong>
+    </div>
+}
+
+@if (Model.projectList.Count == 0)
+{
+    <div class="card text-center">
+        <div class="card-header " id="NoProjects">
+            <h1>You are not a member of any projects</h1>
+            <div class=" row justify-content-center">
+                <a class="btn btn-success float-right" asp-action="ViewAllProjects" asp-controller="Contributor">Join Projects</a>
+            </div>
+        </div>
+    </div>
+
+}
+
+else
+{
+    <div class="text-center">
+        <h1>My Projects</h1>
+    </div>
+    <div class="accordion" id="accordionExample">
+
+        @foreach (var project in Model.projectList)
+        {
+
+
+            <div class="card">
+                <div class="card-header" id="heading@(project.ProjectId)">
+
+                    <h2 class="mb-0">
+                        @if (project.ApplicationStatus.ToLower().Equals("accepted"))
+                        {
+                            <button class="btn btn-primary btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapse@(project.ProjectId)" aria-expanded="true" aria-controls="collapseOne">
+
+
+                                @project.ProjectTitle
+                            </button>
+
+                        }
+                        else
+                        {
+                            <button class="btn btn-warning btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapse@(project.ProjectId)" aria-expanded="true" aria-controls="collapseOne">
+                                @project.ProjectTitle
+                            </button>
+
+
+                        }
+                    </h2>
+
+
+                    @if (project.ProgressBar < 26)
+                    {
+                        <div class="progress" style="margin-top: 10px;">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width:@(project.ProgressBar.ToString())%" aria-valuenow="@(project.ProgressBar)" aria-valuemin="0" aria-valuemax="100" ></div>
+                        </div>
+                    }
+
+                    else if (project.ProgressBar < 51)
+                    {
+                        <div class="progress" style="margin-top: 10px;">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width:@(project.ProgressBar.ToString())%" aria-valuenow="@(project.ProgressBar)" aria-valuemin="0" aria-valuemax="100" ></div>
+                        </div>
+                    }
+
+                    else
+                    {
+                        <div class="progress" style="margin-top: 10px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width:@(project.ProgressBar.ToString())%" aria-valuenow="@(project.ProgressBar)" aria-valuemin="0" aria-valuemax="100" ></div>
+                        </div>
+                    }
+
+                </div>
+
+                <div id="collapse@(project.ProjectId)" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <p><strong>@project.ResearchOrganization</strong></p>
+                        @project.Description
+
+                    </div>
+
+
+
+                    @if (project.ApplicationStatus.ToLower().Equals("accepted"))
+                    {
+                        <div class="row justify-content-center">
+                            <!-- Button trigger modal -->
+
+
+                            <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#ProjectUpdateModalCenter@(project.ProjectId)">
+                                Project Updates
+                            </button>
+
+                            <!-- Button trigger modal -->
+
+                            <button type="button" class="btn btn-success " data-toggle="modal" data-target="#exampleModalCenter@(project.ProjectId)">
+                                Personal Updates
+                            </button>
+
+
+                            <!-- Button trigger modal -->
+
+                            <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#exampleModalCenterleave@(project.ProjectId)">
+                                Leave Project
+                            </button>
+
+                        </div>
+
+
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="ProjectUpdateModalCenter@(project.ProjectId)" tabindex="-1" role="dialog" aria-labelledby="ProjectUpdateModalCenterTitle@(project.ProjectId)" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+
+                                        @if (project.ProgressUpdate != null)
+                                        {<h5 class="modal-title" id="ProjectUpdateModalCenterTitle@(project.ProjectId)">
+                                                @project.ProgressUpdate
+                                            </h5>
+                                        }
+                                        else
+                                        {
+                                            <h5 class="modal-title" id="ProjectUpdateModalCenterTitle@(project.ProjectId)">
+                                                There are currently no updates for this project.
+                                                </h5>
+                                                }
+                                            
+                                        </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary" data-dismiss="modal" aria-label="Close">
+                                            Ok
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter@(project.ProjectId)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle@(project.ProjectId)" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h5 class="modal-title" id="exampleModalCenterTitle@(project.ProjectId)">
+
+                                            @project.UserUpdate
+                                        </h5>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary" data-dismiss="modal" aria-label="Close">
+                                            Ok
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenterleave@(project.ProjectId)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitleleave@(project.ProjectId)" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h5 class="modal-title" id="exampleModalCenterTitleleave@(project.ProjectId)">
+
+                                          
+                                                Leaving a study causes a loss of data and can set researchers back, please think strongly before leaving a study, you are encouraged to contact
+                                                the researchers at the @project.ResearchOrganization before leaving.
+                                           
+                                        </h5>
+                                    </div>
+
+                                    <div class="modal-footer">
+
+                                        <div class="modal-footer">
+                                            <button class="btn btn-success" data-dismiss="modal" aria-label="Close">
+                                                Cancel
+                                            </button>
+                                            <a class="btn btn-danger float-right" asp-action="LeaveProject" asp-controller="Contributor" asp-route-ProjectId="@project.ProjectId">Leave Project</a>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    else if (project.ApplicationStatus.ToLower().Equals("pending review"))
+                    {
+                        <div class="row justify-content-center">
+                            <span class="badge badge-warning">
+                                Pending Review.
+                            </span>
+                        </div>
+                    }
+
+                    else
+                    {
+                        <!-- Button trigger modal -->
+                        <div class="row justify-content-center">
+                            <button type="button" class="btn btn-success " data-toggle="modal" data-target="#exampleModalCenter@(project.ProjectId)">
+                                Accept Project Invite
+                            </button>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter@(project.ProjectId)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle@(project.ProjectId)" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h5 class="modal-title" id="exampleModalCenterTitle@(project.ProjectId)">
+                                            If you join this project you agree to let Researchers from @project.ProjectTitle have access to your genome. If you leave they will not be allowed to use your genome in this project
+                                            but can continue to use it in other projects you have joines.
+                                        </h5>
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <a class="btn btn-danger float-right" asp-action="LeaveProject" asp-controller="Contributor" asp-route-ProjectId="@project.ProjectId">Reject Invite</a>
+                                        <a class="btn btn-success float-right" asp-action="JoinProject" asp-controller="Contributor" asp-route-ProjectId="@project.ProjectId">Accept Invite</a>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+
+                </div>
+            </div>
+
+
+
+
+
+        }
+
+    </div>
+}

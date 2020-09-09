@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using Microsoft.AspNetCore.Identity
+@using AuthorTest.Areas.Identity.Data
+@inject UserManager<AuthorTestUser> UserManager
+@inject SignInManager<AuthorTestUser> SignInManager
+
+<!--- This is the homepage for every user and chages display based on the users role of if they are logged in. -->
+
+@if (ViewBag.submission != null)
+{
+    <div class="alert @ViewBag.AlertType">
+        <strong>@ViewBag.submission</strong>
+    </div>
+}
+
+
+
+@if (User.Identity.IsAuthenticated != true)
+{
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Welcome to Genomify</h1>
+            <p class="lead ">Genomify is a website designed to enable people who have had their genomes sequenced to take part in research projects around the globe. </p>
+            <div>
+                <div class="dropdown d-inline-block">
+                    <button class="btn btn-primary  btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sign-Up
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="btn btn-secondary" asp-action="UserRegistration" asp-controller="UserAccount">Contributor Sign-Up</a>
+                        <a class="btn btn-secondary" asp-action="ResearcherRegistration" asp-controller="UserAccount">Researcher Sign-Up</a>
+                    </div>
+                </div>
+                <a class="btn btn-primary btn-lg" asp-action="SignIn" asp-controller="UserAccount">Login</a>
+            </div>
+        </div>
+    </section>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Welcome @User.Identity.Name</h1>
+
+
+            <a class="btn btn-primary" asp-action="ManageResearchers" asp-controller="Admin">Manage Researchers</a>
+        </div>
+
+    </section>
+}
+
+@if (User.IsInRole("Researcher"))
+{
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Welcome to Genomify</h1>
+            <p class="lead ">You are logged in as a researcher. Use the following buttons to create projects and manage your current projects. </p>
+            <div>
+                <div class="dropdown d-inline-block">
+
+
+                    <a class="btn btn-primary" asp-action="CreateProject" asp-controller="Researcher">Create projects</a>
+                    <a class="btn btn-primary" asp-action="ViewProjects" asp-controller="Researcher">Manage Projects</a>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+}
+
+@if (User.IsInRole("Contributor"))
+{
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Welcome to Genomify</h1>
+            <p class="lead ">
+                You are logged in as a contributor. Use the following buttons to join projects, upload your genome and view your current projects. The more projects you join the greater
+                the chance of recieving feedback.
+            </p>
+            <div>
+                <div class="dropdown d-inline-block">
+
+
+                    <a class="btn btn-primary" asp-action="MyGenome" asp-controller="Contributor">My genome</a>
+                    <a class="btn btn-primary" asp-action="MyProjects" asp-controller="Contributor">My projects</a>
+                    <a class="btn btn-primary" asp-action="ViewAllProjects" asp-controller="Contributor">Join projects</a>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+}

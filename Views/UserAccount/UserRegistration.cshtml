@@ -1,0 +1,48 @@
+﻿@model RegisterViewModel
+
+<!-- Contributor registration page. -->
+
+@if (ViewBag.submission != null)
+{
+    <div class="alert @ViewBag.AlertType">
+        <strong>@ViewBag.submission</strong>
+    </div>
+}
+<div class="container my-5">
+
+
+    <h1>Register as a Contributor</h1>
+
+    <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+
+
+        <div class="form-group w-50">
+
+            <input placeholder="Email Address" asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group w-50">
+
+            <input placeholder="Password" asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group w-50">
+
+            <input placeholder="Enter password again" asp-for="passwordCheck" class="form-control" />
+            <span asp-validation-for="passwordCheck" class="text-danger"></span>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary btn-lg"> Register</button>
+        <a class="btn btn-secondary btn-lg" asp-action="ResearcherRegistration" asp-controller="UserAccount">Register as a Researcher</a>
+
+
+    </form>
+</div>
+

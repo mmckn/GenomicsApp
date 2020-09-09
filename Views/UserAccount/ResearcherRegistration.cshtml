@@ -1,0 +1,80 @@
+﻿@model ResearcherRegisterViewModel
+
+<!-- Researcher Refistration page. -->
+
+<body>
+
+    @if (ViewBag.submission != null)
+    {
+        <div class="alert @ViewBag.AlertType">
+            <strong>@ViewBag.submission</strong>
+        </div>
+    }
+
+    <div class="container my-5">
+        <h1>Register as a Researcher</h1>
+        <form method="post">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+
+            <div class="form-group w-50 ">
+
+                <input placeholder="Email Address" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group w-50">
+
+                <input placeholder="Password Check" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group w-50">
+
+                <input placeholder="Re-enter password" asp-for="passwordCheck" class="form-control" />
+                <span asp-validation-for="passwordCheck" class="text-danger"></span>
+            </div>
+
+            <div class="form-group w-50">
+
+                <input placeholder="Research organization" asp-for="ResearchOrganization" class="form-control" />
+                <span asp-validation-for="ResearchOrganization" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group w-75">
+                <input placeholder="Research organization address" asp-for="ResearchOrganizationAddress" class="form-control" />
+
+                <span asp-validation-for="ResearchOrganizationAddress" class="text-danger"></span>
+            </div>
+
+            <div class="form-group w-50">
+
+                <input type="email" placeholder="Research Organization Email" asp-for="ResearchOrganizationEmail" class="form-control" />
+                <span asp-validation-for="ResearchOrganizationEmail" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg"> Register</button>
+            <a class="btn btn-secondary btn-lg" asp-action="UserRegistration" asp-controller="UserAccount">Contributor registration</a>
+
+
+        </form>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>

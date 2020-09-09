@@ -1,0 +1,62 @@
+﻿@model ProjectListViewModel
+
+ <!-- View all projects created by verified Researchers. -->
+
+
+<div class="accordion" id="accordionExample">
+
+    @foreach (var project in Model.projectList)
+    {
+        <div class="card">
+            <div class="card-header" id="heading@(project.ProjectId)">
+
+                <h2 class="mb-0">
+                    <button class="btn btn-primary btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapse@(project.ProjectId)" aria-expanded="true" aria-controls="collapseOne">
+                        @project.ProjectTitle
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapse@(project.ProjectId)" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <p><strong>@project.ResearchOrganization</strong></p>
+                    @project.Description
+                </div>
+                <!-- Button trigger modal -->
+                <div class="row justify-content-center">
+                    <button type="button" class="btn btn-success " data-toggle="modal" data-target="#exampleModalCenter@(project.ProjectId)">
+                        Join Project
+                    </button>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter@(project.ProjectId)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle@(project.ProjectId)" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5 class="modal-title" id="exampleModalCenterTitle@(project.ProjectId)">Are you sure you want to join this project? By joining you agree to let Researchers from @project.ResearchOrganization have access to your genome. </h5>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
+                                    Cancel
+                                </button>
+                                <a class="btn btn-success float-right" asp-action="JoinProject" asp-controller="Contributor" asp-route-ProjectId="@project.ProjectId">Join Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    }
+</div>
+

@@ -1,0 +1,86 @@
+﻿@model FileDataViewModel
+
+<!-- Contributors manage their genome from this view. -->
+
+@{
+    ViewData["Title"] = "My Genome";
+}
+
+@if (ViewBag.submission != null)
+{
+    <div class="alert @ViewBag.AlertType">
+        <strong>@ViewBag.submission</strong>
+    </div>
+}
+@if (Model != null)
+{
+    <h1>My Genome</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>FileName</th>
+
+
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>@Model.FileName</td>
+                <!------- modal button -------->
+                <td>
+                    <div class="row justify-content-center">
+                        <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#exampleModalDeleteGenome">
+                            Delete Genome
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalDeleteGenome" tabindex="-1" role="dialog" aria-labelledby="exampleModelDeleteGenomeTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalCenterDeleteGenomeTitle">Are you sure you want to delete your genome? By doing so you will prevent it being used in any research. </h5>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
+                        Cancel
+                    </button>
+                    <a class=" btn btn-danger" href="/Contributor/DeleteGenome?GenomeName=@Model.FileName">Delete Genome</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+else
+{
+    <div class="container h-100">
+        <div class=" border row justify-content-center align-items-center">
+            <form method="post" enctype="multipart/form-data" asp-controller="Contributor" asp-action="UploadGenome">
+                <div class="form-group">
+                    <h1> Upload Genome </h1>
+                    <input class="form-control btn btn -primary" name="file" type="file" />
+
+                </div>
+                <div class="form-group ">
+                    <input class="btn btn-primary btn-block" type="submit" value="Submit" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+}

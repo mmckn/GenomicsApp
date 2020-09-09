@@ -1,0 +1,26 @@
+﻿@model InviteContributorViewModel
+
+<!-- Researchers can recruit contributors to another project by entering the projects Id here.. -->
+
+<h1>@Model.UserId</h1>
+
+<form method="post" asp-action="InviteToProject">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+
+    <div class="form-group">
+        <label asp-for="ProjectId"></label>
+        <input asp-for="ProjectId" class="form-control" />
+        <span asp-validation-for="ProjectId" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <input asp-for="UserId" type="hidden" value=@Model.UserId />
+    </div>
+
+
+    <button type="submit" class="btn btn-primary"> Invite Contributor</button>
+
+</form>
